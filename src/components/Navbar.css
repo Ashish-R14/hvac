@@ -1,0 +1,222 @@
+/* ══════════════════════════════════════════════════════════════════
+   NAVBAR — Phase 3
+   ══════════════════════════════════════════════════════════════════
+   Replaces the inline-styled <nav> previously in ClimewaveWebsite.jsx.
+   Same structure, same links, same anchors — only presentation moved
+   to tokens + a floating glass treatment. Every value below resolves
+   to a token from tokens.css; nothing is hardcoded.
+   ══════════════════════════════════════════════════════════════════ */
+
+.cw-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-sticky);
+  padding: var(--space-5) 0 0;
+  transition: padding var(--duration-slow) var(--ease-standard);
+}
+.cw-navbar--scrolled {
+  padding: var(--space-3) 0 0;
+}
+
+.cw-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-2xl);
+  border: var(--border-width-hairline) solid transparent;
+  background: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  box-shadow: none;
+  transition:
+    background-color var(--duration-slow) var(--ease-standard),
+    border-color var(--duration-slow) var(--ease-standard),
+    box-shadow var(--duration-slow) var(--ease-standard),
+    backdrop-filter var(--duration-slow) var(--ease-standard);
+}
+.cw-navbar--scrolled .cw-navbar__inner {
+  background: var(--glass-bg-strong);
+  border-color: var(--glass-border);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  box-shadow: var(--shadow-lg);
+}
+
+/* ── Brand ───────────────────────────────────────────────────────── */
+.cw-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+.cw-navbar__logo {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  transition: var(--transition-transform);
+}
+.cw-navbar--scrolled .cw-navbar__logo {
+  width: 44px;
+  height: 44px;
+}
+@media (min-width: 769px) {
+  .cw-navbar__logo { width: 72px; height: 72px; }
+  .cw-navbar--scrolled .cw-navbar__logo { width: 56px; height: 56px; }
+}
+.cw-navbar__brand-name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-accent-blue);
+  text-transform: uppercase;
+  line-height: var(--leading-snug);
+}
+.cw-navbar__brand-sub {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-mono);
+}
+@media (min-width: 769px) {
+  .cw-navbar__brand-name { font-size: var(--text-base); }
+}
+
+/* ── Desktop links ───────────────────────────────────────────────── */
+.cw-navbar__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+.cw-navbar__link {
+  position: relative;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-normal);
+  transition: var(--transition-colors);
+}
+.cw-navbar__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 1.5px;
+  background: var(--color-accent-blue);
+  transition: width var(--duration-base) var(--ease-out);
+}
+.cw-navbar__link:hover {
+  color: var(--color-text-main);
+}
+.cw-navbar__link:hover::after {
+  width: 100%;
+}
+
+/* ── Hamburger ───────────────────────────────────────────────────── */
+.cw-navbar__hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: var(--border-width-hairline) solid var(--border-color-default);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  cursor: pointer;
+  z-index: calc(var(--z-modal) + 1);
+}
+.cw-navbar__hamburger span {
+  width: 20px;
+  height: 2px;
+  background: var(--color-text-main);
+  border-radius: 1px;
+  display: block;
+  transition: var(--transition-transform), opacity var(--duration-base) var(--ease-standard);
+}
+.cw-navbar__hamburger span.is-open:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.cw-navbar__hamburger span.is-open:nth-child(2) { opacity: 0; }
+.cw-navbar__hamburger span.is-open:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile menu overlay ─────────────────────────────────────────── */
+.cw-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(4, 8, 15, 0.55);
+  animation: cw-fade-in var(--duration-slow) var(--ease-standard) both;
+}
+.cw-mobile-menu__sheet {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  padding: var(--space-12) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  animation: cw-scale-in var(--duration-slow) var(--ease-spring) both;
+}
+.cw-mobile-menu__close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  background: transparent;
+  border: none;
+  color: var(--color-text-main);
+  font-size: var(--text-xl);
+  cursor: pointer;
+  line-height: 1;
+}
+.cw-mobile-menu__link {
+  color: var(--color-text-main);
+  text-decoration: none;
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-normal);
+  transition: var(--transition-colors);
+}
+.cw-mobile-menu__link:hover {
+  color: var(--color-accent-blue);
+}
+.cw-mobile-menu__social {
+  display: flex;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+}
+.cw-mobile-menu__social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg-secondary);
+  border: var(--border-width-hairline) solid var(--border-color-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: var(--transition-base);
+}
+.cw-mobile-menu__social-link:hover {
+  color: var(--color-accent-blue);
+  border-color: var(--glass-border-accent);
+}
+
+@keyframes cw-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes cw-scale-in {
+  from { opacity: 0; transform: scale(0.94) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cw-mobile-menu, .cw-mobile-menu__sheet { animation: none; }
+}

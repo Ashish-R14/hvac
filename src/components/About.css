@@ -1,0 +1,129 @@
+/* ══════════════════════════════════════════════════════════════════
+   ABOUT — Phase 6
+   ══════════════════════════════════════════════════════════════════ */
+
+.cw-about { background: var(--navy-900); }
+
+.cw-about__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: var(--space-12);
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+@media (max-width: 768px) {
+  .cw-about__header { flex-direction: column; align-items: flex-start; }
+}
+
+.cw-about__intro { margin-top: var(--space-3); }
+
+.cw-about__quick-stats { display: flex; flex-direction: column; gap: var(--space-3); flex-shrink: 0; }
+.cw-about__quick-stat {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: 10px var(--space-5);
+  border-radius: var(--radius-md);
+}
+.cw-about__quick-stat-val { font-size: var(--text-lg); font-weight: var(--font-weight-black); color: var(--color-accent-blue); font-family: var(--font-mono); }
+.cw-about__quick-stat-label { font-size: var(--text-sm); color: var(--color-text-subtle); }
+
+/* ── Leadership hierarchy layout ─────────────────────────────────
+   Founder & CEO centered above, COO/CFO in a balanced row beneath —
+   replaces the old equal-weight 3-column grid. Reuses FounderCard's
+   `founder`/`executive` variants; this file only arranges them. */
+.cw-about__leadership {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-10) 0 var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+/* Radial glow behind the founder card, guiding the eye to the CEO
+   first. Kept subtle — a soft wash, not a spotlight beam. */
+.cw-about__leadership-spotlight {
+  position: absolute;
+  top: -5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(70vw, 900px);
+  height: 480px;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--color-accent-blue) 10%, transparent), transparent 70%);
+  z-index: var(--z-base);
+}
+
+.cw-about__founder-slot {
+  position: relative;
+  z-index: var(--z-raised);
+  width: 100%;
+  max-width: 460px;
+  animation: cw-founder-float 7s var(--ease-standard) infinite;
+}
+
+.cw-about__executives {
+  position: relative;
+  z-index: var(--z-raised);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+  width: 100%;
+  max-width: 760px;
+}
+
+@keyframes cw-founder-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cw-about__founder-slot { animation: none; }
+}
+
+/* Tablet: single column, founder still first, reduced spacing */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .cw-about__leadership { gap: var(--space-8); }
+  .cw-about__executives { grid-template-columns: 1fr; max-width: 420px; gap: var(--space-6); }
+}
+
+/* Mobile: fully stacked, everything centered */
+@media (max-width: 768px) {
+  .cw-about__leadership { gap: var(--space-6); padding: var(--space-6) 0 var(--space-4); }
+  .cw-about__founder-slot { max-width: 100%; }
+  .cw-about__executives { grid-template-columns: 1fr; max-width: 100%; gap: var(--space-5); }
+}
+
+.cw-about__mission {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-12);
+  align-items: center;
+  padding: var(--space-8) var(--space-10);
+  background-image: linear-gradient(135deg, rgba(0, 212, 255, 0.05), rgba(0, 85, 238, 0.05));
+  border-color: var(--glass-border-accent);
+}
+@media (max-width: 768px) {
+  .cw-about__mission { grid-template-columns: 1fr; gap: var(--space-6); padding: var(--space-6) var(--space-5); }
+}
+
+.cw-about__mission-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-black);
+  line-height: var(--leading-snug);
+  margin: var(--space-3) 0 var(--space-3);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-highlight);
+}
+@media (max-width: 768px) { .cw-about__mission-title { font-size: var(--text-lg); } }
+
+.cw-about__mission-desc { font-size: var(--text-sm); color: var(--color-text-subtle); line-height: var(--leading-loose); }
+
+.cw-about__values { display: flex; flex-direction: column; gap: var(--space-4); }
+.cw-about__value { display: flex; gap: var(--space-4); align-items: flex-start; }
+.cw-about__value-icon { font-size: var(--text-xl); flex-shrink: 0; margin-top: 2px; }
+.cw-about__value-title { font-size: var(--text-sm); font-weight: var(--font-weight-bold); color: var(--color-text-main); margin-bottom: 3px; }
+.cw-about__value-desc { font-size: var(--text-xs); color: var(--color-text-subtle); line-height: var(--leading-relaxed); }

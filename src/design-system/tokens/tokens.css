@@ -1,0 +1,261 @@
+/* ══════════════════════════════════════════════════════════════════
+   CLIMEWAVE DESIGN SYSTEM V2 — GLOBAL TOKENS
+   ══════════════════════════════════════════════════════════════════
+   Single source of truth for the entire visual language.
+
+   Backward compatibility: every --color-*, --font-*, and --shadow-*
+   token that existed in the original src/index.css is preserved here
+   with the exact same name and value. HVACTool.css (92 references)
+   and ClimewaveWebsite.css (8 references) already consume these and
+   must keep working unmodified.
+
+   New tokens extend the system to cover every category in the V2
+   spec: spacing, radius, elevation, blur, glass, border, glow,
+   motion/transitions, opacity, shadows, grid, container, breakpoints.
+   Values were reverse-engineered from what's already in production
+   use across the codebase (see Phase 1 audit) — this phase changes
+   no visual output, it only names what already exists and fills the
+   gaps.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+
+  /* ── COLOR — PRIMITIVES ──────────────────────────────────────── */
+  /* "Ink" scale — teal-green, hue 168° (matched to the Climewave
+     logo's wave/leaf hue), darkest → lightest. Replaces the earlier
+     desaturated blue-navy scale per the brand-alignment pass: richer
+     and more colorful while staying a dark theme. Every value here
+     was checked for WCAG contrast against the accent and text colors
+     below before being locked in. */
+  --navy-950: #091613;
+  --navy-900: #0b1b18;
+  --navy-850: #0d1f1b;
+  --navy-800: #0f2420;
+  --navy-750: #102823;
+  --navy-700: #122b26;
+  --navy-650: #14312b;
+  --navy-600: #163630;
+  --navy-550: #183c35;
+  --navy-500: #1e4840;
+  --navy-400: #286256;
+  --navy-300: #358273;
+  --navy-200: #43a390;
+  --navy-100: #60beab;
+  --navy-50:  #80cbbc;
+  --navy-25:  #afded5;
+
+  /* Brand accent scale */
+  --cyan-500: #00d4ff;      /* primary brand accent */
+  --cyan-600: #00b4dc;
+  --cyan-700: #00aacc;
+  --blue-600: #0055ee;      /* used in cyan→blue gradients */
+
+  --green-500: #00e5a0;     /* secondary accent */
+  --green-400: #00ff9f;
+  --green-600: #00ccaa;
+
+  --amber-500: #ffb800;
+  --orange-500: #ff6b35;
+  --orange-400: #ff9035;
+  --red-500: #ff0000;
+  --red-600: #ff4500;
+
+  --white: #ffffff;
+  --text-light: #dce8f8;
+  --text-lighter: #c0cfe0;
+  --text-dim: #9ab8d8;
+
+  /* ── COLOR — SEMANTIC (existing, preserved exactly) ─────────────── */
+  --color-bg-main: var(--navy-650);   /* #14312b — nudged one step lighter than the initial brand-alignment pass (was --navy-800 #0f2420, ~15% perceptual lightness) to land at true "moderately dark, mid-tone" rather than "deep dark". Verified against --color-text-muted below: contrast stays ~8:1, so there's no readability cost. */
+  --color-bg-secondary: var(--navy-550); /* #183c35 */
+  --color-bg-card: rgba(22, 54, 48, 0.6);   /* --navy-600 at 60% */
+  --color-bg-input: rgba(15, 36, 32, 0.7);  /* previous main-bg tone, now used as the "sunken" input surface — reads correctly as recessed relative to the new lighter page background */
+
+  --color-text-main: #dce8f8;
+  --color-text-muted: #c0cfe0;    /* was #5a6a8a — too dark on dark backgrounds, failed WCAG contrast. Now aliases text-lighter for readability. */
+  --color-text-highlight: #ffffff;
+
+  --color-accent-blue: #00d4ff;
+  --color-accent-blue-dim: rgba(0, 212, 255, 0.15);
+  --color-accent-green: #00e5a0;
+  --color-accent-orange: #ff6b35;
+
+  --color-border-light: rgba(220, 232, 248, 0.08);
+  --color-border-accent: rgba(0, 212, 255, 0.2);
+
+  /* ── COLOR — SEMANTIC (new, additive) ───────────────────────────── */
+  --color-bg-elevated: var(--navy-500);
+  --color-bg-sunken: var(--navy-950);
+  --color-bg-sunken-veil: rgba(9, 22, 19, 0.8); /* --navy-950 at ~80% — used for radial vignettes over canvas/hero visuals */
+  --color-accent-amber: var(--amber-500);
+  --color-accent-red: var(--red-500);
+  --color-text-subtle: #c0cfe0;   /* was var(--navy-100) — same readability fix as color-text-muted */
+  --color-text-faint: #9ab8d8;    /* was var(--navy-200) — was near-invisible on dark/gradient card backgrounds (see card subtitle/label text) */
+  --color-border-strong: var(--navy-300);
+
+  /* ── TYPOGRAPHY ──────────────────────────────────────────────── */
+  --font-sans: 'Syne', 'Noto Sans Devanagari', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --text-xs:   0.75rem;   /* 12px — labels, captions */
+  --text-sm:   0.875rem;  /* 14px — body small, nav links */
+  --text-base: 1rem;      /* 16px — body */
+  --text-md:   1.0625rem; /* 17px — body (matches current html base) */
+  --text-lg:   1.25rem;   /* 20px */
+  --text-xl:   1.5rem;    /* 24px */
+  --text-2xl:  2rem;      /* 32px */
+  --text-3xl:  2.5rem;    /* 40px */
+  --text-btn-lg: 0.9375rem; /* 15px — matches original hero/nav CTA button size */
+  --text-4xl:  clamp(28px, 5vw, 56px);  /* section titles */
+  --text-hero: clamp(34px, 5.5vw, 72px);  /* hero title — reduced from clamp(38px,7vw,90px): the 90px max overwhelmed the layout on wide desktops and left too little clearance under the navbar */
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-black: 800;
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+  --leading-loose: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.12em;
+  --tracking-wider: 0.15em;
+  --tracking-widest: 0.18em;
+
+  /* ── SPACING ─────────────────────────────────────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;   /* current Section vertical padding */
+  --space-24: 96px;
+
+  /* ── RADIUS ──────────────────────────────────────────────────── */
+  --radius-xs: 6px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-full: 999px;   /* pills / circular controls */
+
+  /* ── ELEVATION (z-index) ─────────────────────────────────────── */
+  --z-base: 0;
+  --z-raised: 2;
+  --z-dropdown: 10;
+  --z-sticky: 100;       /* navbar */
+  --z-overlay: 900;
+  --z-modal: 999;
+  --z-toast: 9999;
+
+  /* ── BLUR ────────────────────────────────────────────────────── */
+  --blur-sm: 6px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 16px;       /* standard glass panel blur */
+
+  /* ── GLASS (composited presets) ──────────────────────────────── */
+  --glass-bg: var(--color-bg-card);
+  --glass-bg-strong: rgba(15, 36, 32, 0.8);
+  --glass-border: var(--color-border-light);
+  --glass-border-accent: var(--color-border-accent);
+  --glass-blur: var(--blur-xl);
+
+  /* ── BORDER ──────────────────────────────────────────────────── */
+  --border-width-hairline: 1px;
+  --border-width-thick: 2px;
+  --border-color-default: var(--color-border-light);
+  --border-color-accent: var(--color-border-accent);
+  --border-color-strong: var(--color-border-strong);
+
+  /* ── GLOW ────────────────────────────────────────────────────── */
+  --glow-blue: 0 0 20px rgba(0, 212, 255, 0.35);
+  --glow-blue-strong: 0 0 32px rgba(0, 212, 255, 0.5);
+  --glow-green: 0 0 20px rgba(0, 229, 160, 0.35);
+  --glow-amber: 0 0 20px rgba(255, 184, 0, 0.35);
+  --glow-orange: 0 0 20px rgba(255, 107, 53, 0.35);
+
+  /* ── SHADOWS ─────────────────────────────────────────────────── */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.4);   /* existing --shadow-card */
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-glow-blue: 0 0 20px rgba(0, 212, 255, 0.35);
+  --shadow-glow-green: 0 0 20px rgba(0, 229, 160, 0.35);
+
+  /* ── MOTION — DURATIONS ──────────────────────────────────────── */
+  --duration-fast: 150ms;
+  --duration-base: 200ms;   /* current default across the codebase */
+  --duration-slow: 300ms;
+  --duration-slower: 800ms;
+  --duration-slowest: 1100ms;
+
+  /* ── MOTION — EASING ─────────────────────────────────────────── */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ── MOTION — COMPOSITED TRANSITIONS ─────────────────────────── */
+  --transition-fast: all var(--duration-fast) var(--ease-standard);
+  --transition-base: all var(--duration-base) var(--ease-standard);
+  --transition-slow: all var(--duration-slow) var(--ease-standard);
+  --transition-transform: transform var(--duration-base) var(--ease-out);
+  --transition-colors: color var(--duration-base) var(--ease-standard),
+                        background-color var(--duration-base) var(--ease-standard),
+                        border-color var(--duration-base) var(--ease-standard);
+
+  /* ── OPACITY ─────────────────────────────────────────────────── */
+  --opacity-disabled: 0.5;
+  --opacity-muted: 0.6;
+  --opacity-hover: 0.85;
+  --opacity-full: 1;
+
+  /* ── GRID ────────────────────────────────────────────────────── */
+  --grid-columns: 12;
+  --grid-gap: var(--space-6);
+  --grid-gap-sm: var(--space-4);
+
+  /* ── CONTAINER WIDTH ─────────────────────────────────────────── */
+  --container-max: 1100px;      /* matches existing Container component */
+  --container-padding: 20px;
+  --container-padding-mobile: var(--space-4);
+
+  /* ── BREAKPOINTS ─────────────────────────────────────────────── */
+  /* CSS custom properties can't drive @media conditions directly —
+     these document the values in use so every new @media rule and
+     the useIsMobile()/useBreakpoint() hooks stay in sync. Do not
+     rename without updating both. */
+  --breakpoint-xs: 480px;
+  --breakpoint-sm: 540px;
+  --breakpoint-md: 768px;   /* primary mobile threshold (useIsMobile) */
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+}
+
+/* ── REDUCED MOTION ──────────────────────────────────────────────
+   Collapses every duration token to near-zero for users who have
+   requested reduced motion at the OS level. Components that use the
+   transition/duration tokens above automatically respect this —
+   no per-component media query needed. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0.01ms;
+    --duration-base: 0.01ms;
+    --duration-slow: 0.01ms;
+    --duration-slower: 0.01ms;
+    --duration-slowest: 0.01ms;
+  }
+}

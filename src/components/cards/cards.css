@@ -1,0 +1,103 @@
+/* ══════════════════════════════════════════════════════════════════
+   CARDS — Phase 5
+   ══════════════════════════════════════════════════════════════════
+   Shared leaf styles for ServiceCard, ProjectCard, ComponentCard,
+   SmallComponentCard, and StatCard. The card "shell" (glass, border,
+   tilt, accent glow) comes from GlassCard + the ds-glass-card--tilt/
+   --accent modifiers in primitives.css; this file only styles the
+   content inside each card. Every per-item brand color (accent/col)
+   is passed in as the --accent custom property and consumed via
+   color-mix() in CSS — no JS ever builds an alpha-suffixed hex
+   string, unlike the original inline-style version.
+   ══════════════════════════════════════════════════════════════════ */
+
+.cw-card { padding: var(--space-6); cursor: pointer; }
+.cw-card__icon { font-size: 1.75rem; margin-bottom: var(--space-3); }
+.cw-card__title { font-size: var(--text-lg); font-weight: var(--font-weight-bold); color: var(--color-text-highlight); margin-bottom: var(--space-2); }
+.cw-card__desc { font-size: var(--text-sm); color: var(--color-text-muted); line-height: var(--leading-relaxed); margin-bottom: var(--space-4); }
+
+.cw-card__list { display: flex; flex-direction: column; gap: var(--space-2); }
+.cw-card__list-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--color-text-faint); }
+.cw-card__dot { width: 4px; height: 4px; border-radius: var(--radius-full); background: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent); flex-shrink: 0; }
+
+/* ── ServiceCard ─────────────────────────────────────────────────── */
+.cw-service-card { --tilt-strength: 5; }
+
+/* ── ProjectCard ─────────────────────────────────────────────────── */
+.cw-project-card { padding: 0; overflow: hidden; }
+.cw-project-card__cover {
+  height: 140px;
+  background: linear-gradient(135deg, var(--navy-950), var(--navy-700));
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cw-project-card__tag {
+  position: relative;
+  z-index: var(--z-raised);
+  background: var(--color-accent-blue-dim);
+  border: var(--border-width-hairline) solid var(--glass-border-accent);
+  border-radius: var(--radius-sm);
+  padding: 4px 12px;
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-accent-blue);
+  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-mono);
+}
+.cw-project-card__body { padding: var(--space-5) var(--space-6) var(--space-6); }
+.cw-project-card__stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--space-3); }
+.cw-project-card__stat { background: var(--color-bg-elevated); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+.cw-project-card__stat-label { font-size: 0.5625rem; color: var(--color-text-faint); font-family: var(--font-mono); letter-spacing: var(--tracking-wide); margin-bottom: 3px; }
+.cw-project-card__stat-value { font-size: var(--text-sm); font-weight: var(--font-weight-bold); color: var(--color-accent-blue); }
+
+/* ── ComponentCard ───────────────────────────────────────────────── */
+.cw-component-card { padding: 0; overflow: hidden; }
+.cw-component-card__media { height: 180px; overflow: hidden; position: relative; background: var(--navy-700); }
+.cw-component-card__img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.7) saturate(0.8); transition: transform var(--duration-slow) var(--ease-standard); }
+.cw-component-card:hover .cw-component-card__img { transform: scale(1.05); }
+.cw-component-card__media-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--navy-700), var(--navy-550)); font-size: 3rem; opacity: 0.3; }
+.cw-component-card__media-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--navy-550) 100%); }
+.cw-component-card__code {
+  position: absolute; top: var(--space-3); left: var(--space-3);
+  font-size: var(--text-xs); font-family: var(--font-mono);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+  background: rgba(8, 14, 26, 0.85);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan-500)) 27%, transparent);
+  padding: 3px 10px; border-radius: var(--radius-full); letter-spacing: var(--tracking-wide);
+  backdrop-filter: blur(var(--blur-md)); -webkit-backdrop-filter: blur(var(--blur-md));
+}
+.cw-component-card__icon-corner { position: absolute; top: 10px; right: var(--space-3); font-size: var(--text-xl); }
+.cw-component-card__body { padding: var(--space-5) var(--space-5) var(--space-6); }
+.cw-component-card__full { font-size: 0.625rem; color: var(--color-text-faint); font-family: var(--font-mono); margin-bottom: var(--space-3); }
+.cw-component-card__tags { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.cw-component-card__tag { font-size: 0.5625rem; color: var(--color-text-faint); background: var(--color-bg-elevated); border: var(--border-width-hairline) solid var(--border-color-default); padding: 2px 8px; border-radius: var(--radius-full); font-family: var(--font-mono); }
+
+/* ── SmallComponentCard ──────────────────────────────────────────── */
+.cw-small-card { padding: 0; overflow: hidden; }
+.cw-small-card__media { height: 90px; overflow: hidden; position: relative; background: var(--navy-700); }
+.cw-small-card__img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6) saturate(0.7); transition: transform var(--duration-slow) var(--ease-standard); }
+.cw-small-card:hover .cw-small-card__img { transform: scale(1.06); }
+.cw-small-card__media-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+.cw-small-card__media-fallback span { font-size: var(--text-2xl); opacity: 0.25; }
+.cw-small-card__media-fade { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 30%, var(--navy-550) 100%); }
+.cw-small-card__icon { position: absolute; top: var(--space-2); left: var(--space-3); font-size: var(--text-md); }
+.cw-small-card__code { position: absolute; top: var(--space-2); right: var(--space-3); font-size: 0.5625rem; color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent); font-family: var(--font-mono); }
+.cw-small-card__body { padding: var(--space-3) var(--space-4) var(--space-4); }
+.cw-small-card__title { font-size: var(--text-sm); font-weight: var(--font-weight-bold); color: var(--color-text-highlight); margin-bottom: var(--space-1); }
+.cw-small-card__desc { font-size: var(--text-xs); color: var(--color-text-muted); line-height: var(--leading-normal); }
+
+/* ── StatCard ────────────────────────────────────────────────────── */
+.cw-stat-card { text-align: center; padding: var(--space-5) var(--space-4); }
+@media (max-width: 768px) { .cw-stat-card { padding: 18px 14px; } }
+.cw-stat-card__value {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-black);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+  font-family: var(--font-mono);
+  margin-bottom: var(--space-1);
+}
+@media (min-width: 769px) { .cw-stat-card__value { font-size: var(--text-3xl); } }
+.cw-stat-card__label { font-size: var(--text-xs); color: var(--color-text-muted); letter-spacing: var(--tracking-normal); }

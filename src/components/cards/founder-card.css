@@ -1,0 +1,161 @@
+/* ══════════════════════════════════════════════════════════════════
+   FOUNDER CARD — Phase 6
+   ══════════════════════════════════════════════════════════════════ */
+
+.cw-founder-card { padding: 0; overflow: hidden; }
+
+.cw-founder-card__media {
+  height: 220px;
+  position: relative;
+  background: var(--navy-700);
+  overflow: hidden;
+}
+.cw-founder-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  filter: brightness(0.85) saturate(0.9);
+  transition: transform var(--duration-slower) var(--ease-standard);
+}
+.cw-founder-card:hover .cw-founder-card__img { transform: scale(1.04); }
+
+.cw-founder-card__media-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--navy-700), var(--navy-550));
+}
+.cw-founder-card__initial {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent, var(--cyan-500)) 13%, transparent), color-mix(in srgb, var(--accent, var(--cyan-500)) 27%, transparent));
+  border: 2px solid color-mix(in srgb, var(--accent, var(--cyan-500)) 27%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-2xl);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+}
+
+.cw-founder-card__media-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, var(--navy-550) 100%);
+}
+
+.cw-founder-card__exp {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  background: rgba(8, 14, 26, 0.85);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan-500)) 27%, transparent);
+  border-radius: var(--radius-sm);
+  padding: 5px 12px;
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  font-size: var(--text-xs);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+  font-family: var(--font-mono);
+  letter-spacing: var(--tracking-wide);
+}
+
+.cw-founder-card__body { padding: var(--space-5) var(--space-6) var(--space-6); }
+.cw-founder-card__name { font-size: var(--text-lg); font-weight: var(--font-weight-black); color: var(--color-text-highlight); letter-spacing: var(--tracking-tight); }
+.cw-founder-card__role {
+  font-size: var(--text-sm);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+  font-weight: var(--font-weight-semibold);
+  margin-top: 2px;
+  margin-bottom: var(--space-2);
+}
+.cw-founder-card__tag {
+  display: inline-block;
+  margin-bottom: var(--space-3);
+  font-size: 0.5625rem;
+  color: var(--color-text-faint);
+  background: var(--color-bg-elevated);
+  border: var(--border-width-hairline) solid var(--border-color-default);
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+}
+
+.cw-founder-card__badges { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-bottom: var(--space-5); }
+.cw-founder-card__badge {
+  font-size: 0.5625rem;
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+  background: color-mix(in srgb, var(--accent, var(--cyan-500)) 7%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent, var(--cyan-500)) 16%, transparent);
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+}
+
+.cw-founder-card__socials {
+  display: flex;
+  gap: var(--space-3);
+  border-top: var(--border-width-hairline) solid var(--border-color-default);
+  padding-top: var(--space-4);
+}
+.cw-founder-card__social-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-subtle);
+  text-decoration: none;
+  background: var(--color-bg-elevated);
+  border: var(--border-width-hairline) solid var(--border-color-default);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  transition: var(--transition-colors), border-color var(--duration-base) var(--ease-standard);
+}
+.cw-founder-card__social-link:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--cyan-500)) 40%, transparent);
+  color: color-mix(in srgb, var(--accent, var(--cyan-500)) 100%, transparent);
+}
+
+/* ── Founder variant ─────────────────────────────────────────────
+   Applied only to the CEO card in About.jsx's leadership layout.
+   Same markup/component as the executive cards — larger dimensions,
+   stronger glass (via GlassCard's `strong` prop), premium border,
+   deeper shadow, and a richer hover lift are the only differences. */
+.cw-founder-card--founder {
+  border-width: var(--border-width-thick);
+  border-color: color-mix(in srgb, var(--accent, var(--cyan-500)) 35%, var(--glass-border));
+  box-shadow: var(--shadow-xl), 0 30px 70px -20px color-mix(in srgb, var(--accent, var(--cyan-500)) 30%, transparent);
+}
+.cw-founder-card--founder .cw-founder-card__media { height: 280px; }
+.cw-founder-card--founder .cw-founder-card__body { padding: var(--space-8) var(--space-8) var(--space-8); }
+.cw-founder-card--founder .cw-founder-card__name { font-size: var(--text-xl); }
+.cw-founder-card--founder .cw-founder-card__role { font-size: var(--text-base); }
+.cw-founder-card--founder .cw-founder-card__initial { width: 100px; height: 100px; font-size: var(--text-3xl); }
+
+/* Subtle glass-reflection sweep across the founder card on hover —
+   a diagonal highlight band that crosses the card, reinforcing the
+   "premium spotlight" feel without adding a new component. */
+.cw-founder-card--founder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, 0.08) 50%, transparent 60%);
+  background-size: 250% 250%;
+  background-position: 120% 120%;
+  transition: background-position var(--duration-slowest) var(--ease-out);
+  pointer-events: none;
+}
+.cw-founder-card--founder:hover::after { background-position: -20% -20%; }
+
+.cw-founder-card--founder.ds-glass-card--interactive:hover {
+  box-shadow: var(--shadow-xl), 0 40px 90px -20px color-mix(in srgb, var(--accent, var(--cyan-500)) 40%, transparent);
+}
+
+@media (max-width: 768px) {
+  .cw-founder-card--founder .cw-founder-card__media { height: 240px; }
+  .cw-founder-card--founder .cw-founder-card__body { padding: var(--space-6) var(--space-6) var(--space-6); }
+}
