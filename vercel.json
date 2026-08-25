@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/hvac-services/:city(haldwani|ramnagar|rudrapur|kashipur|khatima|sitarganj|lalkuan|kitcha|dehradun)", "destination": "/index.html" },
+    { "source": "/hvac-services/:city(haldwani|ramnagar|rudrapur|kashipur|khatima|sitarganj|lalkuan|kitcha|dehradun)/", "destination": "/index.html" },
+    { "source": "/ac-repair/:city(haldwani|ramnagar|dehradun)", "destination": "/index.html" },
+    { "source": "/ac-repair/:city(haldwani|ramnagar|dehradun)/", "destination": "/index.html" }
+  ]
+}

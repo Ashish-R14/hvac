@@ -2,21 +2,33 @@ import js from '@eslint/js'
 import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{ts,tsx}'],
     ignores: ['api/**'],
     extends: [
       js.configs.recommended,
+      tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
     languageOptions: {
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+    rules: {
+      // Underscore-prefixed bindings mark intentionally-unused
+      // parameters/destructured elements (mirrors tsconfig's
+      // noUnusedParameters convention) rather than dead code.
+      '@typescript-eslint/no-unused-vars': ['error', {
+        argsIgnorePattern: '^_',
+        destructuredArrayIgnorePattern: '^_',
+        varsIgnorePattern: '^_',
+      }],
     },
   },
   {
@@ -35,7 +47,7 @@ export default defineConfig([
     // exactly that verified-safe pattern (see its own doc comment) and
     // this project doesn't use the React Compiler, so this is a
     // confirmed false positive rather than a real bug.
-    files: ['src/hooks/useTilt.js', 'src/components/cards/**/*.jsx'],
+    files: ['src/hooks/useTilt.ts', 'src/components/cards/**/*.tsx'],
     rules: {
       'react-hooks/refs': 'off',
     },
