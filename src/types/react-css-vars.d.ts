@@ -1,5 +1,3 @@
-/// <reference types="vite/client" />
-
 // Allow CSS custom properties (e.g. `style={{ '--accent': '#fff' }}`),
 // which are used throughout the design system for per-card accent colors.
 // The `export {}` makes this file a module, which is required for

@@ -1,5 +1,6 @@
+'use client';
 import './HVACTool.css';
-import { useState, useRef, useCallback, useEffect, type CSSProperties, type Dispatch, type RefObject, type SetStateAction } from "react";
+import { useState, useRef, useCallback, useEffect, type CSSProperties, type RefObject } from "react";
 import { CLOUDINARY_IMAGES } from "./cloudinaryImages";
 
 declare global {
@@ -808,40 +809,10 @@ interface SubmissionData {
 }
 async function saveSubmission(data: SubmissionData) {
   try {
-    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-    const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_KEY;
-    await fetch(`${SUPABASE_URL}/rest/v1/hvac_submissions`, {
+    await fetch("/api/save-submission/", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "apikey": SUPABASE_KEY,
-        "Authorization": `Bearer ${SUPABASE_KEY}`,
-        "Prefer": "return=minimal",
-      },
-      body: JSON.stringify({
-        room_length:    data.f.l,
-        room_width:     data.f.w,
-        room_height:    data.f.h,
-        room_type:      data.f.rt,
-        people:         data.f.p,
-        windows:        data.f.win,
-        sunlight:       data.f.sun,
-        furniture:      data.f.furn,
-        door_pos:       data.f.door,
-        placement_1:    data.f.p1,
-        placement_2:    data.f.p2,
-        btu_result:     data.btu,
-        ac_size:        data.ac,
-        best_placement: data.best.name,
-        monthly_cost:   data.cost,
-        cooling_time:   data.time,
-        language:       data.lang,
-        user_name:      data.userInfo?.name,
-        user_email:     data.userInfo?.email,
-        user_phone:     data.userInfo?.phone,
-        user_city:      data.userInfo?.city,
-        source:         "hvac-tool",
-      }),
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
   } catch (err) {
     console.warn("Storage error:", err);
@@ -855,7 +826,7 @@ async function getAI(data: AIQuery, lang: string): Promise<string> {
       ? `HVAC विशेषज्ञ के रूप में 3 वाक्यों में सलाह दें: कमरा ${data.l}×${data.w} फ़ीट, ${data.rt}, BTU: ${data.btu}, प्लेसमेंट: ${data.bp}, मासिक खर्च: ₹${data.cost}`
       : `As HVAC expert give 3 sentence practical advice: Room ${data.l}x${data.w}ft, ${data.rt}, BTU: ${data.btu}, Best placement: ${data.bp}, Monthly cost: Rs.${data.cost}`;
 
-    const res = await fetch("/api/ai-insight", {
+    const res = await fetch("/api/ai-insight/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ prompt }),
@@ -1042,8 +1013,7 @@ function CVS({lang}: {lang: Lang}){
 // ════════════════════════════════════════════════════════
 //  MAIN APP
 // ════════════════════════════════════════════════════════
-interface HVACProps { setView?: Dispatch<SetStateAction<string>>; }
-export default function HVAC(_props: HVACProps){
+export default function HVAC(){
   const [lang,setLang]=useState<Lang>("en");
   const [tab,setTab]=useState<"calc"|"cvs">("calc");
   const t=T[lang];
@@ -1080,7 +1050,6 @@ export default function HVAC(_props: HVACProps){
     const best=bestPlacement(f.l,f.w);
     setRes({btu,ac:acLabel(btu),time:coolTime(btu,area),cost,c1,c2,best,area,f:{...f},userInfo:{...userInfo}});
     saveSubmission({f:{...f},btu,ac:acLabel(btu),best,cost,time:coolTime(btu,area),lang,userInfo});
-    saveSubmission({ f:{...f}, btu, ac:acLabel(btu), best, cost, time:coolTime(btu,f.l*f.w), lang });
     setBusy(false);setStep(3);
     setAIL(true);
     try{const ins=await getAI({l:f.l,w:f.w,rt:f.rt,btu,bp:best.name,cost},lang);setAI(ins);}

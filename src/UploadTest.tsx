@@ -1,3 +1,4 @@
+'use client';
 import { useState, type ChangeEvent } from "react";
 
 export default function UploadTest() {
@@ -26,7 +27,7 @@ export default function UploadTest() {
     setUploading(true);
     setError(null);
     try {
-      const res = await fetch("/api/upload-image", {
+      const res = await fetch("/api/upload-image/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ image: preview }),

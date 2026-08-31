@@ -80,3 +80,13 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Section heading utilities — used by every page's Section blocks
+   (homepage remainder, and the standalone pages under src/app/*),
+   so they live here rather than in ClimewaveWebsite.css, which only
+   the homepage loads. */
+.section-title { font-size: clamp(24px, 4vw, 48px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 14px; }
+.section-sub { font-size: 15px; color: var(--color-text-muted); line-height: 1.65; max-width: 560px; }
+.pipe-anim { stroke-dasharray: 12 8; animation: dashFlow 2s linear infinite; }
+@keyframes pipeLine { 0% { transform: translateX(-100%); } 100% { transform: translateX(700%); } }
+@keyframes dashFlow { to { stroke-dashoffset: -20; } }

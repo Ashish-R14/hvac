@@ -1,3 +1,4 @@
+'use client';
 import { useRef, type CSSProperties, type ElementType, type MouseEvent, type PointerEvent, type ReactNode } from 'react';
 import './primitives.css';
 

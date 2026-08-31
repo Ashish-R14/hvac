@@ -1,5 +1,6 @@
+'use client';
 import { useState, useEffect } from 'react';
-import useIsMobile from '../hooks/useIsMobile.js';
+import useIsMobile from '../hooks/useIsMobile';
 import './FloatingSocial.css';
 
 const LINKS = [

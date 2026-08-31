@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { GlassCard } from '../../design-system/primitives';
-import useTilt from '../../hooks/useTilt.js';
+import useTilt from '../../hooks/useTilt';
 import { CLOUDINARY_IMAGES } from '../../cloudinaryImages';
 import './cards.css';
 

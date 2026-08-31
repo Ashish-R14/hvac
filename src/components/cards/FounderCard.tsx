@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { GlassCard } from '../../design-system/primitives';
-import useTilt from '../../hooks/useTilt.js';
+import useTilt from '../../hooks/useTilt';
 import './cards.css';
 import './founder-card.css';
 

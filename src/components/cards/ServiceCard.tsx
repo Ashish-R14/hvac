@@ -1,5 +1,5 @@
 import { GlassCard } from '../../design-system/primitives';
-import useTilt from '../../hooks/useTilt.js';
+import useTilt from '../../hooks/useTilt';
 import './cards.css';
 
 interface ServiceCardProps {

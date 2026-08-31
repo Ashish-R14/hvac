@@ -1,6 +1,8 @@
+'use client';
 import { Section, Container, Badge, GlassCard } from '../design-system/primitives';
 import FounderCard from './cards/FounderCard';
 import { CLOUDINARY_IMAGES } from '../cloudinaryImages';
+import '../styles/page-header-offset.css';
 import './About.css';
 
 const FOUNDERS = [
@@ -27,12 +29,12 @@ const VALUES = [
  */
 export default function About() {
   return (
-    <Section id="about" className="cw-about">
+    <Section id="about" className="cw-about cw-below-navbar">
       <Container>
         <div className="cw-about__header">
           <div>
             <Badge>ABOUT US</Badge>
-            <h2 className="section-title">We built,<br />Because you<br />needed it.</h2>
+            <h1 className="section-title">We built,<br />Because you<br />needed it.</h1>
             <p className="section-sub cw-about__intro">
               Climewave was founded because we see people spend lakhs installing systems the wrong way — because nobody calculated it right upfront.
             </p>

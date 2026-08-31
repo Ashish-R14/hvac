@@ -38,7 +38,11 @@
     backdrop-filter var(--duration-slow) var(--ease-standard);
 }
 .cw-navbar--scrolled .cw-navbar__inner {
-  background: var(--glass-bg-strong);
+  /* Near-opaque rather than --glass-bg-strong's 0.8 alpha: this bar has
+     to fully hide page content scrolling behind it (Hero's bright badge
+     showed through at 0.8), unlike decorative glass elsewhere where
+     partial translucency is the point. */
+  background: rgba(15, 36, 32, 0.97);
   border-color: var(--glass-border);
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
@@ -73,6 +77,7 @@
   color: var(--color-accent-blue);
   text-transform: uppercase;
   line-height: var(--leading-snug);
+  white-space: nowrap;
 }
 .cw-navbar__brand-sub {
   font-size: var(--text-xs);

@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /dev/
 
-Sitemap: https://climewaveengineers.com/sitemap.xml
+Sitemap: https://www.climewaveengineers.com/sitemap.xml

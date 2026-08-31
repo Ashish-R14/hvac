@@ -1,5 +1,5 @@
 import { useRef, useEffect } from 'react';
-import useIsMobile from '../hooks/useIsMobile.js';
+import useIsMobile from '../hooks/useIsMobile';
 import { Container, Badge, Button } from '../design-system/primitives';
 import { CLOUDINARY_IMAGES } from '../cloudinaryImages';
 import './Hero.css';
@@ -143,10 +143,10 @@ export default function Hero() {
           </p>
 
           <div className="cw-hero__cta-row">
-            <Button href="#tool" variant="primary" size="lg" magnetic>
+            <Button href="/tool" variant="primary" size="lg" magnetic>
               ⚡ Start Free HVAC Analysis
             </Button>
-            <Button href="#how-it-works" variant="glass" size="lg">
+            <Button href="/how-it-works" variant="glass" size="lg">
               See How It Works →
             </Button>
           </div>

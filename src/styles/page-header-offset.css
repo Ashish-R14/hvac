@@ -1,0 +1,6 @@
+/* Standalone pages have no Hero to push content below the fixed Navbar,
+   so their first section needs the same clearance Hero.css gives
+   .cw-hero__container across the same breakpoints. */
+.cw-below-navbar { padding-top: 168px; }
+@media (max-width: 1024px) { .cw-below-navbar { padding-top: 148px; } }
+@media (max-width: 768px) { .cw-below-navbar { padding-top: 116px; } }

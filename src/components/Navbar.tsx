@@ -1,16 +1,18 @@
+'use client';
 import { useState, useEffect } from 'react';
-import useIsMobile from '../hooks/useIsMobile.js';
+import Link from 'next/link';
+import useIsMobile from '../hooks/useIsMobile';
 import { Container, Button, GlassCard } from '../design-system/primitives';
 import { CLOUDINARY_IMAGES } from '../cloudinaryImages';
 import './Navbar.css';
 
 const NAV_LINKS = [
-  ['#how-it-works', 'How It Works'],
-  ['#tool', 'Free Analysis'],
-  ['#services', 'Services'],
-  ['#components', 'Components'],
-  ['#projects', 'Projects'],
-  ['#about', 'About Us'],
+  ['/how-it-works', 'How It Works'],
+  ['/tool', 'Free Analysis'],
+  ['/services', 'Services'],
+  ['/components', 'Components'],
+  ['/projects', 'Projects'],
+  ['/about', 'About Us'],
 ];
 
 const SOCIAL_LINKS = [
@@ -58,24 +60,24 @@ export default function Navbar() {
       <nav className={`cw-navbar ${scrolled ? 'cw-navbar--scrolled' : ''}`}>
         <Container>
           <div className="cw-navbar__inner">
-            <a href="#" className="cw-navbar__brand" aria-label="Climewave Engineers — home">
+            <Link href="/" className="cw-navbar__brand" aria-label="Climewave Engineers — home">
               <img src={CLOUDINARY_IMAGES.logo} alt="Climewave Engineers" className="cw-navbar__logo" />
               <div>
-                <div className="cw-navbar__brand-name">CLIMEWAVE</div>
+                <div className="cw-navbar__brand-name">CLIME WAVE</div>
                 <div className="cw-navbar__brand-sub">ENGINEERS</div>
               </div>
-            </a>
+            </Link>
 
             {!isMobile && (
               <div className="cw-navbar__links" role="navigation" aria-label="Primary">
                 {NAV_LINKS.map(([href, label]) => (
-                  <a key={href} href={href} className="cw-navbar__link">{label}</a>
+                  <Link key={href} href={href} className="cw-navbar__link">{label}</Link>
                 ))}
               </div>
             )}
 
             {!isMobile && (
-              <Button href="#contact" variant="primary" size="md" magnetic>
+              <Button href="/#contact" variant="primary" size="md" magnetic>
                 Get Consultation
               </Button>
             )}
@@ -107,10 +109,10 @@ export default function Navbar() {
             >
               ✕
             </button>
-            {NAV_LINKS.concat([['#contact', 'Get Consultation']]).map(([href, label]) => (
-              <a key={href} href={href} onClick={() => setMenuOpen(false)} className="cw-mobile-menu__link">
+            {NAV_LINKS.concat([['/#contact', 'Get Consultation']]).map(([href, label]) => (
+              <Link key={href} href={href} onClick={() => setMenuOpen(false)} className="cw-mobile-menu__link">
                 {label}
-              </a>
+              </Link>
             ))}
             <div className="cw-mobile-menu__social">
               {SOCIAL_LINKS.slice(0, 3).map((s) => (

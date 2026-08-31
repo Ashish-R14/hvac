@@ -1,24 +1,20 @@
 // Server-side signed upload to Cloudinary. The API secret lives only in the
-// Vercel environment (CLOUDINARY_API_SECRET) so it's never bundled into
-// client-side JS — same pattern as ai-insight.js.
+// server environment (CLOUDINARY_API_SECRET) so it's never bundled into
+// client-side JS — same pattern as ai-insight's route.
 import crypto from "node:crypto";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
+export async function POST(req: Request) {
   const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
   const apiSecret = process.env.CLOUDINARY_API_SECRET;
   if (!cloudName || !apiKey || !apiSecret) {
-    return res.status(500).json({ error: "Cloudinary not configured" });
+    return Response.json({ error: "Cloudinary not configured" }, { status: 500 });
   }
 
-  const { image } = req.body || {};
+  const body = await req.json().catch(() => null);
+  const image = body?.image;
   if (!image || typeof image !== "string" || !image.startsWith("data:")) {
-    return res.status(400).json({ error: "Invalid image" });
+    return Response.json({ error: "Invalid image" }, { status: 400 });
   }
 
   const timestamp = Math.floor(Date.now() / 1000);
@@ -40,10 +36,10 @@ export default async function handler(req, res) {
     );
     const json = await cloudRes.json();
     if (!cloudRes.ok) {
-      return res.status(502).json({ error: json.error?.message || "Upload failed" });
+      return Response.json({ error: json.error?.message || "Upload failed" }, { status: 502 });
     }
-    return res.status(200).json({ url: json.secure_url });
+    return Response.json({ url: json.secure_url });
   } catch {
-    return res.status(500).json({ error: "Upload failed" });
+    return Response.json({ error: "Upload failed" }, { status: 500 });
   }
 }
